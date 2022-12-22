@@ -1,3 +1,4 @@
+import axios from "axios"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
@@ -10,6 +11,13 @@ export default function Login() {
 
     function loginAction(e){
         e.preventDefault()
+
+        const requisition = axios.post("https://mock-api.driven.com.br/api/v4/driven-plus/auth/login", {
+            email: email,
+            password: pwd
+        })
+        requisition.then(res => console.log(res.data))
+        requisition.catch(err => console.log(err.response.data))
     }
 
     return(
