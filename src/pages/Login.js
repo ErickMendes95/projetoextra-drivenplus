@@ -19,7 +19,7 @@ export default function Login() {
             </Logo>
             <Main>
                 <form onSubmit={loginAction}>
-                    <input id="email" type="email" placeholder="E-mail" onChange={(e) => setEmail(e.target.value)}/>
+                    <input id="email" type="email" placeholder="E-mail" title="zezin123@gmail.com" onChange={(e) => setEmail(e.target.value)}/>
                     <input id="password" type="password" placeholder="Password" onChange={(e) => setPwd(e.target.value)}/>
                     <button>Entrar</button>
                 </form>
