@@ -5,6 +5,7 @@ import styled from "styled-components"
 import {AiOutlineArrowLeft} from "react-icons/ai"
 import priceIcon from "../images/priceIcon.png"
 import traitsIcon from "../images/traitsIcon.png"
+import BuySubModal from "../components/BuySubModal"
 
 export default function Subscription(){
 
@@ -17,6 +18,7 @@ export default function Subscription(){
     const [cardNumber, setCardNumber] = useState()
     const [securityNumber, setSecurityNumber] = useState()
     const [expirationDate, setExpirationDate] = useState()
+    const [modalShow, setModalShow] = useState(false)
     
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem("userData"))
@@ -29,14 +31,14 @@ export default function Subscription(){
     function returnPage(){
         navigate(-1)
     }
-    console.log(plans)
 
     if(plans === undefined){
         return(<div>Carregando...</div>)
     }
 
-    function buySubmit(){
-
+    function buySubmit(e){
+        e.preventDefault()
+        setModalShow(true)
     }
 
     return (
@@ -45,24 +47,24 @@ export default function Subscription(){
                 <AiOutlineArrowLeft></AiOutlineArrowLeft>
             </Head>
             <ImagePlan>
-                <img src={plans.image}/>
+                <img src={plans.image} alt="planType"/>
                 <h1>{plans.name}</h1>
             </ImagePlan>
             <Info>
                 <Traits>
                     <Title>
-                        <img src={traitsIcon}/>
+                        <img src={traitsIcon} alt="traisIicon"/>
                         <p>Benefícios:</p>
                     </Title>
                     <Trait>
                         {plans.perks.map((p) => (
-                                <p>{p.id}. {p.title}</p>
+                                <p key={p.id}>{p.id}. {p.title}</p>
                                 ))}
                     </Trait>
                 </Traits>
                 <Price>
                     <Title>
-                            <img src={priceIcon}/>
+                            <img src={priceIcon} alt="priceIcon"/>
                             <p>Preço:</p>
                     </Title>
                     <Trait>
@@ -83,6 +85,16 @@ export default function Subscription(){
                     <button>Assinar</button>
                 </form>
             </FormsContainer>
+            <BuySubModal modalShow={modalShow} 
+            setModalShow={setModalShow} 
+            name={plans.name} 
+            price={plans.price}
+            cardName={cardName}      
+            cardNumber={cardNumber}
+            securityNumber={securityNumber}
+            expirationDate={expirationDate}
+            membershipID={plans.id}
+            />
         </Container>
     ) 
 }
@@ -105,6 +117,7 @@ const Head = styled.div`
     svg{
         padding: 10px 0 0 10px;
         font-size: 40px;
+        cursor: pointer;
     }
 `
 

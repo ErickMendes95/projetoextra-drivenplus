@@ -60,8 +60,7 @@ const Main = styled.div`
     form{
         display: flex;
         flex-direction: column;
-        width: 299px;
-        
+        width: 299px;    
     }
     input{
         height: 52px;
