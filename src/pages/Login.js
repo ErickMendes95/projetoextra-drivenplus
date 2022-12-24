@@ -6,6 +6,8 @@ import logo from "../images/logoDriven.png"
 
 export default function Login() {
 
+    const navigate = useNavigate()
+
     const [email, setEmail] = useState()
     const [pwd, setPwd] = useState()
 
@@ -16,8 +18,20 @@ export default function Login() {
             email: email,
             password: pwd
         })
-        requisition.then(res => console.log(res.data))
+
+        
+        requisition.then(res => localStorage.setItem("userData", JSON.stringify(res.data)))
         requisition.catch(err => console.log(err.response.data))
+
+        const userData = JSON.parse(localStorage.getItem("userData"))
+        console.log(userData)
+
+        if(userData.membership === null){
+            navigate("/subscriptions")
+        } 
+        else {
+            navigate(`/subscriptions/${userData.membership.id}`)
+        }
     }
 
     return(
