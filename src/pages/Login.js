@@ -1,12 +1,16 @@
 import axios from "axios"
-import { useState } from "react"
+import {useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import logo from "../images/logoDriven.png"
+import UserContext from "../components/UserContext"
+
 
 export default function Login() {
 
     const navigate = useNavigate()
+    const {userData} = useContext(UserContext)
+    console.log(userData)
 
     const [email, setEmail] = useState()
     const [pwd, setPwd] = useState()

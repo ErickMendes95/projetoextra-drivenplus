@@ -10,13 +10,30 @@ import Subscription from "./pages/Subscription";
 
 function App() {
 
-  const [token, setToken] = useState()
-  const [userData, setUserData] = useState()
-  const [userMembership, setUserMembership] = useState()
-  const [userCardInfo, setUserCardInfo] = useState()
+  const userDataLS = localStorage.getItem("userData")
+  const userMembershipLS = localStorage.getItem("userMembership")
+  const userCardInfoLS = localStorage.getItem("userCardInfo")
+
+  const [userData, setUserData] = useState(userDataLS)
+  const [userMembership, setUserMembership] = useState(userMembershipLS)
+  const [userCardInfo, setUserCardInfo] = useState(userCardInfoLS)
   
+  function getUserData(userData){
+    setUserData(userData)
+    localStorage.setItem("userData", userData)
+  }
+
+  function getUserMembership(userMembership){
+    setUserMembership(userMembership)
+    localStorage.setItem("userMembership", userMembership)
+  }
+  
+  function getUserCardInfo(userCardInfo){
+    setUserCardInfo(userCardInfo)
+    localStorage.setItem("userCardInfo", userCardInfo)
+  }
   return (
-    <UserContext.Provider>
+    <UserContext.Provider value={{getUserData, getUserMembership, getUserCardInfo}}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login/>}/>
