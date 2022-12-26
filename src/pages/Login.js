@@ -2,14 +2,14 @@ import axios from "axios"
 import {useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import logo from "../images/logoDriven.png"
 import UserContext from "../components/UserContext"
+import logo from "../images/logoDriven.png"
 
 
 export default function Login() {
 
     const navigate = useNavigate()
-    const {userData} = useContext(UserContext)
+    const {userData, GetUserData} = useContext(UserContext)
     console.log(userData)
 
     const [email, setEmail] = useState()
@@ -25,8 +25,7 @@ export default function Login() {
         
         
         requisition.then(res => {
-            localStorage.setItem("userData", JSON.stringify(res.data));
-            const userData = JSON.parse(localStorage.getItem("userData"));
+            GetUserData(JSON.stringify(res.data));
             if(userData.membership === null){
                 navigate("/subscriptions")
             } 
@@ -35,8 +34,8 @@ export default function Login() {
             }
             
     })
-        requisition.catch(err => {alert(err.response.data);
-        console.log(err.response.data)})
+        requisition.catch(err => {alert(err.response.data.message);
+        console.log(err.response)})
 
     }
 

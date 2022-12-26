@@ -1,16 +1,14 @@
 import axios from "axios"
+import { useContext } from "react"
 import { FaUserCircle } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import UserContext from "../components/UserContext"
 
 export default function Home(){
 
     const navigate = useNavigate()
-
-    const userData = JSON.parse(localStorage.getItem("userData"))
-    const userMembership = JSON.parse(localStorage.getItem("userMembership"))
-    const userCardInfo = JSON.parse(localStorage.getItem("userCardInfo"))
-    console.log(userCardInfo)
+    const {userData, userMembership, userCardInfo} = useContext(UserContext)
 
     function ChangePlan(){
         const requisition = axios.post("https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions",{
@@ -25,7 +23,6 @@ export default function Home(){
             headers: {Authorization: `Bearer ${userData.token}`}}
         )
         requisition.then(res => {
-            console.log(res.data);
             navigate("/subscriptions")
         })
         requisition.catch(err => console.log(err.response))

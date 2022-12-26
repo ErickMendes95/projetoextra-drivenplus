@@ -31,7 +31,7 @@ export default function Signup() {
             <Main>
                 <form onSubmit={SignAction}>
                     <input id="name" type="name" placeholder="Nome" onChange={(e) => setName(e.target.value)}/>
-                    <input id="cpf" type="text" pattern="\d{3}\.\d{3}\.\d{3}\.-\d{2}" title="Digite um CPF no formato: xxx.xxx.xxx-xx" placeholder="CPF" onChange={(e) => setCPF(e.target.value)}/>
+                    <input id="cpf" type="text" pattern="\d{3}\.\d{3}\.\d{3}\-\d{2}" title="Digite um CPF no formato: xxx.xxx.xxx-xx" placeholder="CPF" onChange={(e) => setCPF(e.target.value)}/>
                     <input id="email" type="email" placeholder="E-mail" title="zezin123@gmail.com" onChange={(e) => setEmail(e.target.value)}/>
                     <input id="password" type="password" placeholder="Password" onChange={(e) => setPwd(e.target.value)}/>
                     <button>Entrar</button>

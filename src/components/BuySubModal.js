@@ -2,17 +2,19 @@ import styled from "styled-components"
 import { FaWindowClose } from "react-icons/fa"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { useContext } from "react"
+import UserContext from "./UserContext"
 
 export default function BuySubModal({modalShow, setModalShow, name, price, membershipID, cardName, cardNumber, securityNumber, expirationDate}) {
 
 const navigate = useNavigate()
-const userData = JSON.parse(localStorage.getItem("userData"))
+const {userData, GetUserCardInfo, GetUserMembership} = useContext(UserContext)
 if(modalShow === false){
     return null
 }
 
     const userCardData = {membershipID, cardName,cardNumber,securityNumber,expirationDate}
-    localStorage.setItem("userCardInfo", JSON.stringify(userCardData))
+    GetUserCardInfo(JSON.stringify(userCardData))
     
 function buyMembership(){
         const requisition = axios.post("https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions",{
@@ -25,7 +27,7 @@ function buyMembership(){
             headers: {Authorization: `Bearer ${userData.token}`}
         })
         requisition.then(res => {
-            localStorage.setItem("userMembership",JSON.stringify(res.data));
+            GetUserMembership(JSON.stringify(res.data));
              navigate("/home")}
         )
         requisition.catch(err => {console.log(err.response);

@@ -1,19 +1,20 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link} from "react-router-dom"
 import styled from "styled-components"
+import UserContext from "../components/UserContext"
 
 
 export default function SubPlans(){
 
+    const {userData} = useContext(UserContext)
+    
     const [plans, setPlans] = useState()
     
     useEffect(() => {
-        const userData = JSON.parse(localStorage.getItem("userData"))
         const requisition = axios.get("https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships",
         { headers: {Authorization: `Bearer ${userData.token}`}}    )
         requisition.then(res => setPlans(res.data))
-
     },[])
 
     if(plans === undefined){

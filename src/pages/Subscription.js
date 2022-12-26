@@ -1,16 +1,17 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import {AiOutlineArrowLeft} from "react-icons/ai"
 import priceIcon from "../images/priceIcon.png"
 import traitsIcon from "../images/traitsIcon.png"
 import BuySubModal from "../components/BuySubModal"
+import UserContext from "../components/UserContext"
 
 export default function Subscription(){
-
+    
     const navigate = useNavigate()
-
+    const {userData} = useContext(UserContext)
     const {idPlan} = useParams()
     
     const [plans, setPlans] = useState()
@@ -23,7 +24,6 @@ export default function Subscription(){
     
     
     useEffect(() => {
-        const userData = JSON.parse(localStorage.getItem("userData"))
         const requisition = axios.get(`https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships/${idPlan}`,
         { headers: {Authorization: `Bearer ${userData.token}`}}    )
         requisition.then(res => setPlans(res.data))
