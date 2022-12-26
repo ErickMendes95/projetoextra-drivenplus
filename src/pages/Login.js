@@ -34,8 +34,10 @@ export default function Login() {
             }
             
     })
-        requisition.catch(err => {alert(err.response.data.message);
-        console.log(err.response)})
+        requisition.catch(err => {
+        alert(err.response.data.message);
+        console.log(err.response)
+    })
 
     }
 

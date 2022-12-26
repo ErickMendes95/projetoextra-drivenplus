@@ -19,17 +19,17 @@ function App() {
   const [userCardInfo, setUserCardInfo] = useState(userCardInfoLS);
   
   function GetUserData(userData){
-    setUserData(userData)
+    setUserData(JSON.parse(userData))
     localStorage.setItem("userData", userData)
   }
 
   function GetUserMembership(userMembership){
-    setUserMembership(userMembership)
+    setUserMembership(JSON.parse(userMembership))
     localStorage.setItem("userMembership", userMembership)
   }
   
   function GetUserCardInfo(userCardInfo){
-    setUserCardInfo(userCardInfo)
+    setUserCardInfo(JSON.parse(userCardInfo))
     localStorage.setItem("userCardInfo", userCardInfo)
   }
   return (
