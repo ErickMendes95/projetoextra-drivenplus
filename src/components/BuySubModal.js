@@ -11,6 +11,9 @@ if(modalShow === false){
     return null
 }
 
+    const userCardData = {membershipID, cardName,cardNumber,securityNumber,expirationDate}
+    localStorage.setItem("userCardInfo", JSON.stringify(userCardData))
+    
 function buyMembership(){
         const requisition = axios.post("https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions",{
             membershipId: membershipID,
@@ -21,10 +24,12 @@ function buyMembership(){
         }, {
             headers: {Authorization: `Bearer ${userData.token}`}
         })
-        requisition.then(res => 
-            localStorage.setItem("userMembership",JSON.stringify(res.data)), navigate("/home")
+        requisition.then(res => {
+            localStorage.setItem("userMembership",JSON.stringify(res.data));
+             navigate("/home")}
         )
-        requisition.catch(err => console.log(err.response),alert("Aconteceu algum erro, tente novamente"))
+        requisition.catch(err => {console.log(err.response);
+            alert(err.response)})
     }
 
     return(

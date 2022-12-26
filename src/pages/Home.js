@@ -1,12 +1,49 @@
-import { useEffect } from "react"
+import axios from "axios"
 import { FaUserCircle } from "react-icons/fa"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
 export default function Home(){
 
+    const navigate = useNavigate()
+
     const userData = JSON.parse(localStorage.getItem("userData"))
     const userMembership = JSON.parse(localStorage.getItem("userMembership"))
-    console.log(userMembership)
+    const userCardInfo = JSON.parse(localStorage.getItem("userCardInfo"))
+    console.log(userCardInfo)
+
+    function ChangePlan(){
+        const requisition = axios.post("https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions",{
+        
+            membershipId: userCardInfo.membershipID,
+            cardName: userCardInfo.cardName,
+            cardNumber: userCardInfo.cardNumber,
+            securityNumber: userCardInfo.securityNumber,
+            expirationDate: userCardInfo.expirationDate
+        
+        }, { 
+            headers: {Authorization: `Bearer ${userData.token}`}}
+        )
+        requisition.then(res => {
+            console.log(res.data);
+            navigate("/subscriptions")
+        })
+        requisition.catch(err => console.log(err.response))
+    }
+
+    function DeletePlan(){
+        const requisition = axios.delete("https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions", 
+        { headers: {Authorization: `Bearer ${userData.token}`}})
+        requisition.then(res => {
+            alert("Seu plano foi cancelado");
+            localStorage.removeItem("userData");
+            localStorage.removeItem("userMembership");
+            localStorage.removeItem("userCardInfo");
+            navigate("/subscriptions")})
+        requisition.catch(err => {
+            alert("aconteceu um erro"); 
+            console.log(err.response)})
+    }
 
     return(
         <Container>
@@ -25,8 +62,8 @@ export default function Home(){
                 </PerksMembership>
             </Main>
                 <MembershipOptions>
-                    <Button id="ChangePlan">Mudar Plano</Button>
-                    <Button id="CancelPlan">Cancelar Plano</Button>
+                    <Button id="ChangePlan" onClick={() => ChangePlan()}>Mudar Plano</Button>
+                    <Button id="CancelPlan" onClick={() => DeletePlan()}>Cancelar Plano</Button>
                 </MembershipOptions>
         </Container>
     )

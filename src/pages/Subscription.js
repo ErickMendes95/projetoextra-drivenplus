@@ -20,6 +20,8 @@ export default function Subscription(){
     const [expirationDate, setExpirationDate] = useState()
     const [modalShow, setModalShow] = useState(false)
     
+    
+    
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem("userData"))
         const requisition = axios.get(`https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions/memberships/${idPlan}`,
@@ -75,12 +77,12 @@ export default function Subscription(){
             <FormsContainer>
                 <form onSubmit={buySubmit}>
                     <Label1>
-                        <input id="cardName" placeholder="Nome impresso no cartão" onChange={(e) => setCardName(e.target.value)} required></input>
-                        <input id="cardNumber" placeholder="Digitos do cartão" title="XXXX XXXX XXXX XXXX" onChange={(e) => setCardNumber(e.target.value)} required></input>
+                        <input id="cardName" minLength="5" placeholder="Nome impresso no cartão" onChange={(e) => setCardName(e.target.value)} required></input>
+                        <input id="cardNumber" minLength='16' maxLength='16' placeholder="Digitos do cartão" title="XXXX XXXX XXXX XXXX" onChange={(e) => setCardNumber(e.target.value)} required></input>
                     </Label1>
                     <Label2>
-                        <input id="securityNumber" placeholder="Código de Segurança" title="Encontra-se na parte de trás do cartão. Ex: XXX" onChange={(e) => setSecurityNumber(e.target.value)} required></input>
-                        <input id="expirationDate" placeholder="Validade" title="XX/XX" onChange={(e) => setExpirationDate(e.target.value)} required></input>    
+                        <input id="securityNumber" pattern="^[0-9]{3}$" placeholder="Código de Segurança" title="Encontra-se na parte de trás do cartão. Ex: XXX" onChange={(e) => setSecurityNumber(e.target.value)} required></input>
+                        <input id="expirationDate" pattern="^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$" placeholder="Validade" title="XX/XX" onChange={(e) => setExpirationDate(e.target.value)} required></input>    
                     </Label2>
                     <button>Assinar</button>
                 </form>
