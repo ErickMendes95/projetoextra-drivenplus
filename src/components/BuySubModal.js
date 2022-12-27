@@ -13,7 +13,6 @@ if(modalShow === false){
     return null
 }
 
-
 function buyMembership(){
     const userCardData = {membershipID, cardName,cardNumber,securityNumber,expirationDate}
     GetUserCardInfo(JSON.stringify(userCardData))
@@ -27,7 +26,7 @@ function buyMembership(){
             headers: {Authorization: `Bearer ${userData.token}`}
         })
         requisition.then(res => {
-            GetUserMembership(JSON.stringify(res.data));
+            GetUserMembership(JSON.stringify(res.data.membership));
              navigate("/home")}
         )
         requisition.catch(err => {console.log(err.response);

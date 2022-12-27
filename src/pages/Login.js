@@ -1,5 +1,5 @@
 import axios from "axios"
-import {useContext, useState } from "react"
+import {useContext, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import UserContext from "../components/UserContext"
@@ -9,8 +9,9 @@ import logo from "../images/logoDriven.png"
 export default function Login() {
 
     const navigate = useNavigate()
-    const {userData, GetUserData} = useContext(UserContext)
+    const {userData, GetUserMembership, GetUserData} = useContext(UserContext)
     console.log(userData)
+    
 
     const [email, setEmail] = useState()
     const [pwd, setPwd] = useState()
@@ -22,14 +23,13 @@ export default function Login() {
             email: email,
             password: pwd
         })
-        
-        
         requisition.then(res => {
             GetUserData(JSON.stringify(res.data));
             if(res.data.membership === null){
                 navigate("/subscriptions")
             } 
             else {
+                GetUserMembership(JSON.stringify(userData.membership))
                 navigate('/home')
             }
             
@@ -40,6 +40,12 @@ export default function Login() {
     })
 
     }
+    useEffect(() => {
+        if(userData){
+            GetUserMembership(JSON.stringify(userData.membership))
+            navigate("/home")
+        }
+    },[])
 
     return(
         <Container>

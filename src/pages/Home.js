@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useContext, useEffect } from "react"
+import { useContext} from "react"
 import { FaUserCircle } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
@@ -42,7 +42,7 @@ export default function Home(){
     return(
         <Container>
             <Head>
-                <img id="planImage" src={userMembership.membership.image} alt="planImage"/>
+                <img id="planImage" src={userMembership.image} alt="planImage"/>
                 <FaUserCircle/>
             </Head>
             <Main>
@@ -50,7 +50,7 @@ export default function Home(){
                     <h1>Olá, {userData.name} </h1>
                 </NameContainer>
                 <PerksMembership>
-                    {userMembership.membership.perks.map((p) => (
+                    {userMembership?.perks?.map((p) => (
                         <Button key={p.title}><a href={p.link}>{p.title}</a></Button>
                     ))}
                 </PerksMembership>
