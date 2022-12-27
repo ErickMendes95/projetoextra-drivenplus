@@ -26,7 +26,7 @@ export default function Login() {
         
         requisition.then(res => {
             GetUserData(JSON.stringify(res.data));
-            if(userData.membership === null){
+            if(res.data.membership === null){
                 navigate("/subscriptions")
             } 
             else {

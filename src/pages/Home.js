@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { FaUserCircle } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
@@ -33,9 +33,6 @@ export default function Home(){
         { headers: {Authorization: `Bearer ${userData.token}`}})
         requisition.then(res => {
             alert("Seu plano foi cancelado");
-            localStorage.removeItem("userData");
-            localStorage.removeItem("userMembership");
-            localStorage.removeItem("userCardInfo");
             navigate("/subscriptions")})
         requisition.catch(err => {
             alert("aconteceu um erro"); 

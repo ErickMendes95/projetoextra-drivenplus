@@ -10,13 +10,13 @@ import Subscription from "./pages/Subscription";
 
 function App() {
 
-  const userDataLS = JSON.parse(localStorage.getItem("userData"));
-  const userMembershipLS = JSON.parse(localStorage.getItem("userMembership"));
-  const userCardInfoLS = JSON.parse(localStorage.getItem("userCardInfo"));
+  const userDataLS = localStorage.getItem("userData");
+  const userMembershipLS = localStorage.getItem("userMembership");
+  const userCardInfoLS = localStorage.getItem("userCardInfo");
 
-  const [userData, setUserData] = useState(userDataLS);
-  const [userMembership, setUserMembership] = useState(userMembershipLS);
-  const [userCardInfo, setUserCardInfo] = useState(userCardInfoLS);
+  const [userData, setUserData] = useState(JSON.parse(userDataLS));
+  const [userMembership, setUserMembership] = useState(JSON.parse(userMembershipLS));
+  const [userCardInfo, setUserCardInfo] = useState(JSON.parse(userCardInfoLS));
   
   function GetUserData(userData){
     setUserData(JSON.parse(userData))

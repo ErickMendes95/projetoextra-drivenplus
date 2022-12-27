@@ -13,10 +13,10 @@ if(modalShow === false){
     return null
 }
 
+
+function buyMembership(){
     const userCardData = {membershipID, cardName,cardNumber,securityNumber,expirationDate}
     GetUserCardInfo(JSON.stringify(userCardData))
-    
-function buyMembership(){
         const requisition = axios.post("https://mock-api.driven.com.br/api/v4/driven-plus/subscriptions",{
             membershipId: membershipID,
             cardName: cardName,
